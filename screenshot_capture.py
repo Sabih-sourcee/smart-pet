@@ -31,12 +31,12 @@ def capture_screenshot() -> bytes:
         return buf.getvalue()
 
 
-def upload_screenshot(server_url: str, task_id: str, image_bytes: bytes) -> bool:
-    """POST the screenshot to the server. Returns True on success."""
+def upload_screenshot(server_url: str, task_id: str, task_context: str, image_bytes: bytes) -> bool:
     try:
         files = {"screenshot": ("capture.png", image_bytes, "image/png")}
         data = {
             "task_id": task_id,
+            "task_context": task_context,
             "captured_at": datetime.now(timezone.utc).isoformat(),
         }
         resp = requests.post(server_url, files=files, data=data, timeout=15)
@@ -51,6 +51,7 @@ def main():
     parser = argparse.ArgumentParser(description="Smart Pet screenshot capture loop")
     parser.add_argument("--server", required=True, help="Upload endpoint URL")
     parser.add_argument("--task-id", required=True, help="ID of the current task session")
+    parser.add_argument("--task", required=True, help="What the kid is supposed to be doing right now")
     parser.add_argument("--interval", type=int, default=60, help="Seconds between captures")
     args = parser.parse_args()
 
@@ -64,7 +65,7 @@ def main():
             start = time.time()
 
             image_bytes = capture_screenshot()
-            ok = upload_screenshot(args.server, args.task_id, image_bytes)
+            ok = upload_screenshot(args.server, args.task_id, args.task, image_bytes)
 
             capture_count += 1
             status = "sent" if ok else "FAILED"
