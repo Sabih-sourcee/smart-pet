@@ -3,6 +3,8 @@ from datetime import datetime
 import os
 import requests
 import base64
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
