@@ -39,7 +39,7 @@ def upload_screenshot(server_url: str, task_id: str, task_context: str, image_by
             "task_context": task_context,
             "captured_at": datetime.now(timezone.utc).isoformat(),
         }
-        resp = requests.post(server_url, files=files, data=data, timeout=15)
+        resp = requests.post(server_url, files=files, data=data, timeout=25)
         resp.raise_for_status()
         return True
     except requests.RequestException as e:
@@ -52,7 +52,7 @@ def main():
     parser.add_argument("--server", required=True, help="Upload endpoint URL")
     parser.add_argument("--task-id", required=True, help="ID of the current task session")
     parser.add_argument("--task", required=True, help="What the kid is supposed to be doing right now")
-    parser.add_argument("--interval", type=int, default=60, help="Seconds between captures")
+    parser.add_argument("--interval", type=int, default=30, help="Seconds between captures")
     args = parser.parse_args()
 
     print(f"Smart Pet capture started. Interval: {args.interval}s. Task: {args.task_id}")
