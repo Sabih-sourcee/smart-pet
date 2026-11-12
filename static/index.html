@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Pet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; color: #eee; font-family: Arial, sans-serif; height: 100vh; display: flex; flex-direction: column; }
+  #chat { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .bubble { max-width: 70%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.5; }
+  .pet { background: #16213e; border-radius: 18px 18px 18px 4px; align-self: flex-start; }
+  .kid { background: #0f3460; border-radius: 18px 18px 4px 18px; align-self: flex-end; }
+  #input-area { display: flex; padding: 16px; gap: 10px; background: #16213e; }
+  #input-area input { flex: 1; padding: 12px 16px; border-radius: 24px; border: none; background: #1a1a2e; color: #eee; font-size: 15px; outline: none; }
+  #input-area button { padding: 12px 24px; border-radius: 24px; border: none; background: #e94560; color: white; font-size: 15px; cursor: pointer; }
+  #input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<div id="chat"></div>
+<div id="input-area">
+  <input type="text" id="msg" placeholder="Type your message..." />
+  <button id="send">Send</button>
+</div>
+
+<script>
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('msg');
+  const btn = document.getElementById('send');
+
+  function addBubble(text, who) {
+    const div = document.createElement('div');
+    div.className = `bubble ${who}`;
+    div.textContent = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  async function petSays(text) {
+    addBubble(text, 'pet');
+    await fetch('/speak', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text})
+    });
+  }
+
+  async function getInput(prompt) {
+    await petSays(prompt);
+    return new Promise(resolve => {
+      btn.disabled = false;
+      input.focus();
+      function handler() {
+        const val = input.value.trim();
+        if (!val) return;
+        addBubble(val, 'kid');
+        input.value = '';
+        btn.disabled = true;
+        btn.removeEventListener('click', handler);
+        input.removeEventListener('keydown', keyHandler);
+        resolve(val);
+      }
+      function keyHandler(e) {
+        if (e.key === 'Enter') handler();
+      }
+      btn.addEventListener('click', handler);
+      input.addEventListener('keydown', keyHandler);
+    });
+  }
+
+  async function onboard() {
+    const name = await getInput("Hi! I am Smart Pet 🐾 What is your name?");
+    const goal = await getInput(`Nice to meet you ${name}! What do you want to learn today?`);
+    await fetch('/onboard', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name, goal})
+    });
+    await petSays(`Great! Let's get started ${name}! Ask me anything and I can see your screen too`);
+  }
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    addBubble(text, 'kid');
+    input.value = '';
+    btn.disabled = true;
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    const ssResp = await fetch('/screenshot', {method: 'POST'});
+    const {screenshot} = await ssResp.json();
+
+    const resp = await fetch('/question_with_screenshot', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question: text, screenshot})
+    });
+    const answer = await resp.text();
+    addBubble(answer, 'pet');
+    btn.disabled = false;
+    input.focus();
+  }
+
+  async function init() {
+    btn.disabled = true;
+    const resp = await fetch('/session');
+    const session = await resp.json();
+    if (!session.name) {
+      await onboard();
+    } else {
+      await petSays(`Welcome back ${session.name}! Ask me anything`);
+    }
+    btn.disabled = false;
+    btn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+  }
+
+  init();
+</script>
+</body>
+</html>
