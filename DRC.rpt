@@ -1,0 +1,57 @@
+** Drc report for Smartpet.kicad_pcb **
+** Created on 2026-11-25T23:43:22 **
+** Report includes: Errors, Warnings **
+
+** Found 5 DRC violations **
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(44.5262 mm, 70.8406 mm): Track [/MIC_SCK] on B.Cu, length 0.1262 mm
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(26.5000 mm, 44.0000 mm): Rectangle on Edge.Cuts
+    @(30.0000 mm, 44.6100 mm): Reference field of J3
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(59.0000 mm, 97.1800 mm): Reference field of R4
+    @(55.7300 mm, 96.8700 mm): Segment of R3 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.7300 mm, 92.8200 mm): Segment of R2 on F.Silkscreen
+    @(59.0000 mm, 93.1300 mm): Reference field of R3
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(52.1600 mm, 92.8200 mm): Segment of C3 on F.Silkscreen
+    @(49.5400 mm, 93.0000 mm): Reference field of C4
+
+** Found 5 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(44.6200 mm, 45.3800 mm): Track [GND] on F.Cu, length 1.7300 mm
+    @(52.9000 mm, 51.7000 mm): PTH pad 41 [GND] of U1
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(77.8500 mm, 91.3250 mm): Pad 1 [GND] of U2 on F.Cu
+    @(74.5500 mm, 91.6050 mm): PTH pad SH [GND] of J1
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.5000 mm, 75.0000 mm): PTH pad 1 [+5V] of C1
+    @(47.0400 mm, 95.5000 mm): PTH pad 1 [+5V] of C4
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.0000 mm, 62.6200 mm): PTH pad 7 [+5V] of J3
+    @(29.5000 mm, 75.0000 mm): PTH pad 1 [+5V] of C1
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(47.0400 mm, 95.5000 mm): PTH pad 1 [+5V] of C4
+    @(67.8300 mm, 91.5228 mm): Track [+5V] on F.Cu, length 4.2104 mm
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **
