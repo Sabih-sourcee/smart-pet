@@ -1,0 +1,18 @@
+Item,Quantity,Unit Price,Total Price,Link
+PCB 5 pcs 2-layer 131.5x60mm,1,7.90,7.90,https://jlcpcb.com/
+C1 100uF 16V electrolytic,1,0.04,0.04,https://digilog.pk/products/100uf-16v-electrolytic-smoothing-capacitor
+C2 0.1uF ceramic,1,0.04,0.04,https://digilog.pk/products/100nf-capacitor-104-capacitor-0-1uf-capacitor-in-paksitan
+C3 1uF ceramic,1,0.02,0.02,https://alphaelectronics.pk/product/105-ceramic-capacitor-1uf-1000nf-1000000pf-non-polar/
+"C4,C5 10uF 25V ceramic 5mm",2,0.48,0.96,https://www.lcsc.com/product-detail/C531341.html
+D1 5mm LED,1,0.01,0.01,https://digilog.pk/products/5mm-red-led-price-in-pakistan-light-emitting-diode
+J1 USB-C USB4105-GF-A,1,1.03,1.03,https://www.lcsc.com/product-detail/C3020560.html
+8-pin 2.54mm female header,2,0.04,0.08,https://digilog.pk/products/8-pin-2-54mm-female-headers
+R1 330R 1/4W,1,0.01,0.01,https://digilog.pk/products/14-watt-quarter-1-resistor-pakistan?variant=46085908234518
+R2 10K 1/4W,1,0.01,0.01,https://digilog.pk/products/14-watt-quarter-1-resistor-pakistan?variant=46085908824342
+"R3,R4 5.1K 1/4W",2,0.01,0.02,https://www.lcsc.com/product-detail/C714010.html
+SW1-SW3 6mm tactile switch,3,0.07,0.21,https://digilog.pk/products/6-x-6-x-6mm-4-pin-dip-tactile-momentary-push-button-switch
+U1 ESP32-S3-WROOM-1-N16,1,4.95,4.95,https://www.lcsc.com/product-detail/C2913199.html
+U2 AMS1117-3.3,1,0.07,0.07,https://digilog.pk/products/ams1117-3v3-regulator
+INMP441 I2S mic module,1,1.99,1.99,https://digilog.pk/products/inmp441-mems-high-precision-omnidirectional-microphone-i2s-snr-low-power-module
+MAX98357A I2S amp module,1,2.17,2.17,https://digilog.pk/products/max98357-i2s-pcm-digital-audio-amplifier-board-3w-class-d-dac-decoder
+Total,,,19.51,
